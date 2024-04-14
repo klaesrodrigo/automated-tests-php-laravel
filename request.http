@@ -14,3 +14,9 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8000/api/tasks/1
+Content-Type: application/json
+
+###
+
+PATCH http://localhost:8000/api/tasks/arquive/2
+Content-Type: application/json
