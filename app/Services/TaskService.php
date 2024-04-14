@@ -10,4 +10,9 @@ class TaskService implements TaskServiceContract
     {
         return Task::create($data);
     }
+
+    public function getAll()
+    {
+        return Task::all();
+    }
 }
