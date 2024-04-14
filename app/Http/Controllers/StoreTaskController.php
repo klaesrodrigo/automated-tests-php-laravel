@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TaskServiceContract;
 use Illuminate\Http\Request;
 
 class StoreTaskController extends Controller
 {
+    private $taskService;
+
+    public function __construct(TaskServiceContract $taskService)
+    {
+        $this->taskService = $taskService;
+    }
+
     public function __invoke(Request $request)
     {
-        return response()->json([
-            'message' => 'Task stored successfully'
-        ]);
+        $response = $this->taskService->createTask($request->all());
+        return response()->json($response);
     }
 }
