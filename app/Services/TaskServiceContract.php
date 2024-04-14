@@ -9,4 +9,6 @@ interface TaskServiceContract
     public function getAll();
 
     public function toggle(int $id);
+
+    public function arquive(int $id);
 }
