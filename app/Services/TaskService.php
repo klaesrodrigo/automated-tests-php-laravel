@@ -15,4 +15,12 @@ class TaskService implements TaskServiceContract
     {
         return Task::all();
     }
+
+    public function toggle(int $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->completed = !$task->completed;
+        $task->save();
+        return $task;
+    }
 }

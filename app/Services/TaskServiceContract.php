@@ -7,4 +7,6 @@ interface TaskServiceContract
     public function createTask(array $data);
 
     public function getAll();
+
+    public function toggle(int $id);
 }
