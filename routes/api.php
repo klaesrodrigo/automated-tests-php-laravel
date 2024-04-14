@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IndexTaskController;
 use App\Http\Controllers\StoreTaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -9,3 +10,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('/tasks', StoreTaskController::class);
+Route::get('/tasks', IndexTaskController::class);
