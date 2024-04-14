@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Task;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class TaskService implements TaskServiceContract
 {
@@ -29,12 +30,10 @@ class TaskService implements TaskServiceContract
         $canArquive = $this->validateIfTaskCanBeArquived($id);
         
         if (!$canArquive) {
-            return response()->json(['message' => 'Task must be completed to be arquived'], 400);
+            return throw new BadRequestException('Task cannot be arquived', 400);
         }
         
-        $task = Task::where('id', $id)->update(['arquived' => true]);
-
-        return $task;
+        Task::where('id', $id)->update(['archived_at' => now()]);
     }
 
     public function validateIfTaskCanBeArquived(int $id)
