@@ -2,10 +2,14 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class StoreTaskTest extends TestCase
 {
+    
+    use RefreshDatabase; 
+
     public function testStoreTask()
     {
         $name = 'Task 1';
