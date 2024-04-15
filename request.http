@@ -2,7 +2,7 @@ POST http://localhost:8000/api/tasks
 Content-Type: application/json
 
 {
-  "name": "Task 2",
+  "name": "Task 1",
   "description": "Description of task 2",
   "completed": false
 }
