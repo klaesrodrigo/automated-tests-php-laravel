@@ -12,14 +12,17 @@ class StoreTaskTest extends TestCase
 
     public function testStoreTask()
     {
+        // Arrange
         $name = 'Task 1';
         $description = 'Description 1';
 
+        // Act
         $response = $this->postJson('/api/tasks', [
             'name' => $name,
             'description' => $description,
         ]);
 
+        // Assert
         $response->assertStatus(201)
             ->assertJson([
                 'name' => $name,

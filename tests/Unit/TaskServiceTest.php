@@ -7,6 +7,7 @@ use App\Services\TaskService;
 use Mockery;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Tests\TestCase;
+use Tests\Unit\Fake\FakeTaskModel;
 
 class TaskServiceTest extends TestCase
 {
@@ -51,15 +52,42 @@ class TaskServiceTest extends TestCase
 
     public function testGetAll()
     {
+        // Arrange
         $dbResponse = [$this->taskFake, $this->taskCompletedFake];
         $taskModelMock = Mockery::mock(Task::class);
-        $taskModelMock->shouldReceive('all')->once()->andReturn($dbResponse);
+        $taskModelMock->shouldReceive('all')->once()->withNoArgs()->andReturn($dbResponse);
+        $taskService = new TaskService($taskModelMock);
+        
+        // Act
+        $tasks = $taskService->getAll();
+        
+        // Assert
+        $this->assertCount(count($dbResponse), $tasks);
+    }
+
+    public function testGetAllStub()
+    {
+        $dbResponse = [$this->taskFake, $this->taskCompletedFake];
+        $taskModelMock = Mockery::mock(Task::class);
+        $taskModelMock->shouldReceive('all')->andReturn($dbResponse);
         
         $taskService = new TaskService($taskModelMock);
         
         $tasks = $taskService->getAll();
         
         $this->assertCount(count($dbResponse), $tasks);
+    }
+
+    public function testGetAllFakeDatabase()
+    {
+        $taskService = new TaskService(new FakeTaskModel());
+        $tasks = $taskService->getAll();
+
+        $this->assertCount(2, $tasks);
+
+        $this->assertEquals('Task name fake 1', $tasks[0]->name);
+        $this->assertEquals('Task name fake 2', $tasks[1]->name);
+        
     }
     
     public function testArquive()
